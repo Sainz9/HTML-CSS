@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <div class="tses">
+            <h2>Бүртгэл</h2>
+        </div>
+       <div class="menu">
+        <input type="ner" id="name" placeholder="Нэр оруулна уу">
+        <input type="owog" id="surname" placeholder="Овог оруулна уу">
+        <input type="gmail" id="email" placeholder="Gmail оруулна уу">
+        <input type="password" id="pass" placeholder="Password оруулна уу">
+        <input type="passwordd" id="passs" placeholder="Password давтан уу  оруулна уу">
+       <button onclick="addBurtgel()" id="submitBtn">sad</button>
+        <p id="errorMessage" style="color: red; font-weight: bold;"></p>
+
+       </div>
+    </div>
+    <ul id="list"></ul>
+
+    <script>
+    let burtelgs = JSON.parse(localStorage.getItem("burtelgs")) || [];
+    let editIndex = null
+    function renderList(){
+    const list = document.getElementById("list")
+    list.innerHTML = "";
+
+    burtgels.forEach((burtgel,index) => {
+    const li = document.createElement("li");
+
+    li.innerText = `${burtgel.name} нэртэй ~ ${burtgel.surname} овогтой ~ ${burtgel.email} Gmail хэрэглэгч ${burtgel.password} Хэрэглэгч зөвшөөрсөн үед харагдана ~ (${burtgel.passwordd} Хэрэглэгч зөвшөөрсөн үед харагдана) `
+   list.appendChild(li);
+   const editBtn = document.createElement("button");
+   editBtn.innerText = "Засах";
+   editBtn.className = "edit";
+   editBtn.onclick = () => editBurtgel(index)
+   
+   const deleteBtn = document.createElement("button")
+   deleteBtn.innerText = "Устгах";
+   deleteBtn.className = "edit"
+   editBtn.onclick = () => editBurtgel(index)
+
+    li.appendChild(editBtn);
+    li.appendChild(deleteBtn)
+
+
+});
+    }
+    function deleteBurtgel(index){
+    if(confirm("Устгахдаа игтэлтэй байна уу")){
+    burtgels.splice(index, 1);
+    localStorage.setItem("burtgels",JSON.stringify(burtgels));
+    renderList()
+    }
+    }
+    function deleteBurtgel(){
+    const ner = document.getElementById("name").value.trim();
+    const owog = document.getElementById("surname").value.trim();
+    const gmail = document.getElementById("email").value.trim();
+    const password = document.getElementById("pass").value.trim();
+    const passwordd = document.getElementById("passs").value.trim();
+    const error = document.getElementById("errorMessage");
+
+    if(ner === ""){
+    error.innerHTML= "Нэр оруулна уу?";
+    return;
+    }
+
+
+    }
+
+    
+    
+    </script>
+
+    
+</body>
+</html>
